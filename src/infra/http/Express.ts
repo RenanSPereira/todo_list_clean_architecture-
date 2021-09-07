@@ -1,15 +1,11 @@
-import RepositoryMemory from "../repository/RepositoryMemory";
-import ListTodos from "../../core/useCases/ListTodos";
+import ControllerTodo from "../../controller/ControllerTodo";
+import Express from "express";
 
-var express = require('express');
-var app = express();
+const app = Express();
 
-app.get('/', async function(req: any, res: any) {
-  const repository = new RepositoryMemory();
-  const listTodos = new ListTodos(repository);
-  return  res.json(await listTodos.execute());
+app.get('/todos', async function(req: any, res: any) {
+  return res.json(await ControllerTodo.listTodos());
 });
-
 
 app.listen(3000, () => {
     console.log('Server Online');
